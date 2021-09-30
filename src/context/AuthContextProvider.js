@@ -9,7 +9,7 @@ export function useAuth() {
   return useContext(AuthContext);
 }
 
-const AuthContextProvider = () => {
+const AuthContextProvider = ({ children }) => {
   function signup(email, password) {
     return auth.createUserWithEmailAndPassword(email, password);
   }
@@ -39,7 +39,16 @@ const AuthContextProvider = () => {
     return currentUser.updatePassword(password);
   }
 
-  return <div></div>;
+  const values = {
+    signup,
+    login,
+    logout,
+    resetPassword,
+    updatePassword,
+    updateEmail,
+    loginWithGoogle,
+  };
+  return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };
 
 export default AuthContextProvider;
