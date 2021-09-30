@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   title: {
+    flexGrow: 1,
     display: "none",
     fontFamily: "Girassol",
     [theme.breakpoints.up("sm")]: {
@@ -73,7 +74,7 @@ export default function Navbar() {
               onClick={handleMenu}
               color="inherit"
             >
-              <AccountCircle />
+              <AccountCircle style={{ fontSize: "40px" }} />
             </IconButton>
             <Menu
               id="menu-appbar"
