@@ -8,6 +8,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
+import cwLogo from "../assets/cw.jpeg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,6 +28,12 @@ const useStyles = makeStyles((theme) => ({
       color: "wheat",
     },
   },
+  appBar: {
+    backgroundColor: "#046582",
+  },
+  logo: {
+    width: 40,
+  },
 }));
 
 export default function Navbar() {
@@ -44,7 +51,7 @@ export default function Navbar() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" className={classes.appBar}>
         <Toolbar>
           <IconButton
             edge="start"
@@ -52,7 +59,7 @@ export default function Navbar() {
             color="inherit"
             aria-label="menu"
           >
-            <MenuIcon />
+            <img src={cwLogo} alt="logo" className={classes.logo} />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             ──── <span>{"<Clarusway IT />"}</span> BLOG ────
