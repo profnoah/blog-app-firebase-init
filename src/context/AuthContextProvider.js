@@ -1,4 +1,4 @@
-import React, { useContext, createContext } from "react";
+import React, { useContext, createContext, useState } from "react";
 import { auth, googleProvider } from "../utils/firebaseUtil";
 
 //! Create context for autentication data
@@ -10,6 +10,17 @@ export function useAuth() {
 }
 
 const AuthContextProvider = ({ children }) => {
+  const [currentUser, setCurrentUser] = useState();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setCurrentUser(user);
+      setLoading(false);
+    });
+    return unsubscribe;
+  }, []);
+
   function signup(email, password) {
     return auth.createUserWithEmailAndPassword(email, password);
   }
@@ -40,6 +51,7 @@ const AuthContextProvider = ({ children }) => {
   }
 
   const values = {
+    currentUser,
     signup,
     login,
     logout,
@@ -48,7 +60,11 @@ const AuthContextProvider = ({ children }) => {
     updateEmail,
     loginWithGoogle,
   };
-  return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={values}>
+      {!loading && children}
+    </AuthContext.Provider>
+  );
 };
 
 export default AuthContextProvider;
