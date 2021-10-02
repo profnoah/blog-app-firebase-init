@@ -63,6 +63,14 @@ const BlogCard = ({ item }) => {
   const history = useHistory();
   const { currentUser } = useAuth();
 
+  const openDetails = () => {
+    if (!currentUser) {
+      toastErrorNotify("Please Login to get the details");
+    }
+    // if user doenst exist it is routed to the login page via PrivateRouter
+    history.push(`/detail/${id}`);
+  };
+
   return (
     <Card className={classes.root}>
       <CardActionArea onClick={openDetails}>
