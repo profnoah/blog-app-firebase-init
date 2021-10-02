@@ -93,7 +93,6 @@ const ValidationSchema = yup.object().shape({
 });
 
 const LoginAndRegisterForm = (props) => {
- 
   const { loginWithGoogle } = useAuth();
 
   const handleGoogleProvider = () => {
@@ -186,10 +185,10 @@ const LoginAndRegisterForm = (props) => {
   );
 };
 
-const Autorization = () => {
+const Autorization = (props) => {
   const history = useHistory();
   const { signup, login, currentUser } = useAuth();
-  // const [method] = useState(props.method);
+  const [method] = useState(props.method);
   const classes = useStyles();
 
   useEffect(() => {
@@ -207,7 +206,33 @@ const Autorization = () => {
           password: "",
         }}
         validationSchema={ValidationSchema}
-        onSubmit={(values, actions) => {}}
+        onSubmit={(values, actions) => {
+          if (method === "Login") {
+            login(values.email, values.password)
+              .then(() => {
+                toastSuccessNotify(`${method} Successfully performed!`);
+                history.push("/");
+                actions.setSubmitting(false);
+              })
+              .catch((error) => {
+                toastErrorNotify(error.message);
+                actions.setSubmitting(false);
+                actions.resetForm();
+              });
+          } else {
+            signup(values.email, values.password)
+              .then(() => {
+                toastSuccessNotify(`${method} Successfully performed!`);
+                history.push("/");
+                actions.setSubmitting(false);
+              })
+              .catch((error) => {
+                toastErrorNotify(error.message);
+                actions.setSubmitting(false);
+                actions.resetForm();
+              });
+          }
+        }}
         component={LoginAndRegisterForm}
       ></Formik>
     </div>
