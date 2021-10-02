@@ -93,6 +93,7 @@ const ValidationSchema = yup.object().shape({
 });
 
 const LoginAndRegisterForm = (props) => {
+  console.log(props);
   const { loginWithGoogle } = useAuth();
 
   const handleGoogleProvider = () => {
@@ -233,7 +234,9 @@ const Autorization = (props) => {
               });
           }
         }}
-        component={LoginAndRegisterForm}
+        component={(props) => (
+          <LoginAndRegisterForm method={method} {...props} />
+        )}
       ></Formik>
     </div>
   );
