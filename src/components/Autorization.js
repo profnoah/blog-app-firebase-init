@@ -190,7 +190,6 @@ const Autorization = (props) => {
   const history = useHistory();
   const { signup, login, currentUser } = useAuth();
   const [method] = useState(props.method);
-  const classes = useStyles();
 
   useEffect(() => {
     if (currentUser) {
