@@ -93,6 +93,15 @@ const ValidationSchema = yup.object().shape({
 });
 
 const LoginAndRegisterForm = (props) => {
+ 
+  const { loginWithGoogle } = useAuth();
+
+  const handleGoogleProvider = () => {
+    loginWithGoogle();
+  };
+
+  const { handleBlur, handleChange, errors, values, touched, isSubmitting } =
+    props;
   const classes = useStyles();
   return (
     <Grid container className={classes.root}>
