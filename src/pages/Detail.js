@@ -70,6 +70,7 @@ const Detail = ({ match }) => {
 
   const { getOneBlog, deleteOneBlog } = useBlog();
   const result = getOneBlog(match.params.id);
+  console.log(result);
 
   const deleteHandler = (id) => {
     deleteOneBlog(id);
