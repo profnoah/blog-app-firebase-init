@@ -11,6 +11,7 @@ import Menu from "@material-ui/core/Menu";
 import cwLogo from "../assets/cw.jpeg";
 import { useAuth } from "../context/AuthContextProvider";
 import { Link, useHistory } from "react-router-dom";
+import { LocalDiningOutlined } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,8 +48,12 @@ export default function Navbar() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  let { currentUser, logout } = useAuth();
 
-  const { currentUser } = useAuth();
+  //!Just for testing purpose
+  // currentUser = {
+  //   email: "a@gmailcom",
+  // };
 
   console.log(currentUser);
 
@@ -58,6 +63,11 @@ export default function Navbar() {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    setAnchorEl(null);
+    logout();
   };
 
   return (
@@ -109,7 +119,7 @@ export default function Navbar() {
                   <MenuItem onClick={handleClose}>New Blog</MenuItem>
                 </Link>
                 <Link to="/login" className={classes.linkStyle}>
-                  <MenuItem onClick={handleClose}>Logout</MenuItem>
+                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </Link>
               </Menu>
             ) : (

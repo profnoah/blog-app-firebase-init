@@ -3,7 +3,12 @@ import { Redirect, Route } from "react-router-dom";
 import { useAuth } from "../context/AuthContextProvider";
 
 const PrivateRouter = (props) => {
-  const { currentUser } = useAuth();
+  let { currentUser } = useAuth();
+
+  //!Just for testing purpose
+  currentUser = {
+    email: "a@gmailcom",
+  };
 
   return currentUser ? (
     <Route path={props.path} component={props.component} />
