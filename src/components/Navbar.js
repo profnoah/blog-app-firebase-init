@@ -11,7 +11,6 @@ import Menu from "@material-ui/core/Menu";
 import cwLogo from "../assets/cw.jpeg";
 import { useAuth } from "../context/AuthContextProvider";
 import { Link, useHistory } from "react-router-dom";
-import { LocalDiningOutlined } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,6 +41,13 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     color: "black",
   },
+
+  login: {
+    padding: 10,
+    fontSize: 20,
+    color: "white",
+    textDecoration: "none",
+  },
 }));
 
 export default function Navbar() {
@@ -49,6 +55,7 @@ export default function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   let { currentUser, logout } = useAuth();
+  const history = useHistory();
 
   //!Just for testing purpose
   // currentUser = {
@@ -69,6 +76,10 @@ export default function Navbar() {
     setAnchorEl(null);
     logout();
   };
+  const handleDashboard = () => {
+    setAnchorEl(null);
+    history.push("/");
+  };
 
   return (
     <div className={classes.root}>
@@ -79,12 +90,17 @@ export default function Navbar() {
             className={classes.menuButton}
             color="inherit"
             aria-label="menu"
+            onClick={handleDashboard}
           >
             <img src={cwLogo} alt="logo" className={classes.logo} />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            ──── <span>{"<Clarusway IT />"}</span> BLOG ────
-          </Typography>
+          <div className={classes.root}>
+            <Link to="/" className={classes.login}>
+              <Typography variant="h6" className={classes.title}>
+                ──── <span>{"<Clarusway IT />"}</span> BLOG ────
+              </Typography>
+            </Link>
+          </div>
 
           <div>
             <IconButton
