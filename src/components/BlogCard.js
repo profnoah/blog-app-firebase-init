@@ -13,7 +13,7 @@ import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import placeholder from "../assets/placeholder.png";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import moment from "moment";
-import { useAuth } from "../contexts/AuthContextProvider";
+import { useAuth } from "../context/AuthContextProvider";
 import { toastErrorNotify } from "../utils/ToastNotify";
 
 const useStyles = makeStyles(() => ({
@@ -47,8 +47,68 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const BlogCard = () => {
-  return <div></div>;
+const BlogCard = ({ item }) => {
+  const {
+    id,
+    author,
+    content,
+    get_comment_count,
+    get_like_count,
+    image,
+    published_date,
+    title,
+  } = item;
+
+  const classes = useStyles();
+  const history = useHistory();
+  const { currentUser } = useAuth();
+
+  return (
+    <Card className={classes.root}>
+      <CardActionArea onClick={openDetails}>
+        <CardMedia
+          className={classes.media}
+          image={image || placeholder}
+          title={title}
+        />
+
+        <CardContent className={classes.cardContent}>
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="h2"
+            className={classes.title}
+          >
+            {title}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {moment(published_date).format("MMM DD, YYYY")}
+          </Typography>
+          <p className={classes.module}>{content}</p>
+        </CardContent>
+      </CardActionArea>
+      <CardActions>
+        <AccountCircle className={classes.avatar} />
+        <Typography gutterBottom variant="h6" component="h2">
+          {author}
+        </Typography>
+      </CardActions>
+      <CardActions>
+        <IconButton aria-label="add to favorites" className={classes.image}>
+          <FavoriteIcon color={get_like_count > 0 ? "secondary" : "disabled"} />
+        </IconButton>
+        <Typography variant="body2" color="textSecondary">
+          {get_like_count}
+        </Typography>
+        <IconButton aria-label="comment count" className={classes.image}>
+          <ChatBubbleOutlineIcon />
+        </IconButton>
+        <Typography variant="body2" color="textSecondary">
+          {get_comment_count}
+        </Typography>
+      </CardActions>
+    </Card>
+  );
 };
 
 export default BlogCard;
