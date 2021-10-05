@@ -46,7 +46,9 @@ const UpdateBlog = ({ match }) => {
   const { getOneBlog, updateBlog } = useBlog();
   const result = getOneBlog(match.params.id);
 
-  const res = result ? result[0] : { title: "", content: "", image: "" };
+  const res = useMemo(() => {
+    return result ? result[0] : { title: "", content: "", image: "" };
+  }, [result]);
 
   const [updatedBlog, setUpdatedBlog] = useState(res);
 
