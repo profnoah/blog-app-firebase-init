@@ -35,7 +35,7 @@ const Dashboard = () => {
       </Typography>
       <>
         <Grid container className={classes.root} justifyContent="center">
-          <Grid item xs={12}>
+          <Grid item xs={12} >
             <Grid container justifyContent="center" spacing={5}>
               {currentBlogs === undefined ? (
                 <img src={loadingGif} alt="loading" />
@@ -43,7 +43,8 @@ const Dashboard = () => {
                 currentBlogs.map((item, id) => (
                   <Grid key={id} item>
                     <BlogCard item={item} />
-                  </Grid>                ))
+                  </Grid>
+                ))
               ) : (
                 <h3>No data available.</h3>
               )}
